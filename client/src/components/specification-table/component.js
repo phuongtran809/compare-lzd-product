@@ -4,6 +4,11 @@ import cheerio from 'cheerio';
 import ReactHtmlParser from 'react-html-parser';
 import './styles.less';
 
+// the rule of thumb
+// react components is just a presenter layer
+// it shouldn't contain any business logic
+// business logic should live separately in libs
+// or in the store in the worst case
 export default class SpecificationTable extends Component {
     renderHeader() {
         const   { html } = this.props;

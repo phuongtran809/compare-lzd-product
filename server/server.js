@@ -5,6 +5,12 @@ import path from 'path';
 import request from 'request';
 
 function checkUrl(url) {
+    // your regexp is very strange
+    // it accepts urls like:
+    // - /www.lazada.vn/some
+    // - http:/www.lazada.vn/some
+    // they are incorrect
+    // you also don't add schema for url like "www.lazada.vn/some"
     const urlRegex = /^((http[s]?):\/)?\/?www\.lazada\.vn\/[\-\w\.]+$/
     return urlRegex.test(url);
 }
@@ -33,6 +39,7 @@ app.get('/api', (req, res) => {
             res.status(400).json({ code: 400, message: 'Fetch error' });
             return;
         }
+        // Don't you think it's better to parse page on server and sent only required data to client?
         res.send(html);
     });
 });

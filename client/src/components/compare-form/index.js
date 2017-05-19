@@ -10,6 +10,13 @@ function mapStateToProps(state) {
     };
 }
 
+// you can write it shorter, just:
+// mapDispatchToProps = {
+//  fetchURL,
+//  onSubmit,
+//  onChangeUrl,
+//}
+// react-redux will add dispatch for you
 function mapDispatchToProps(dispatch) {
     return {
         fetchURL: function (url) {

@@ -19,6 +19,7 @@ function receiveURL(html) {
     };
 }
 
+// why do you return function here?
 function failureURL() {
     return function(error) {
         return {
