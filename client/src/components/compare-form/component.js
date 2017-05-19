@@ -6,9 +6,9 @@ export default class CompareForm extends Component {
     constructor(props) {
         super(props);
         this.onSubmitForm = this.onSubmitForm.bind(this);
-        this.handleChange = this.handleChange.bind(this);  
+        this.handleChange = this.handleChange.bind(this);
     }
-    
+
     checkUrl(url) {
         const urlRegex = /^((http[s]?):\/)?\/?www\.lazada\.vn\/[\-\w\.]+$/;
         return urlRegex.test(url);
@@ -16,6 +16,7 @@ export default class CompareForm extends Component {
 
     handleChange() {
         const { onChangeUrl } = this.props;
+        // why do you need this check? you already defined propTypes
         if (typeof onChangeUrl==='function') {
             onChangeUrl();
         }
@@ -25,15 +26,36 @@ export default class CompareForm extends Component {
         e.preventDefault();
         let     url_1 = this.url_1,
                 url_2 = this.url_2;
+        // read value from dom element is a bad idea
         const   isValid_Url_1 = this.checkUrl(url_1.value),
                 isValid_Url_2 = this.checkUrl(url_2.value);
-        const   { fetchURL, onSubmit } = this.props; 
+        const   { fetchURL, onSubmit } = this.props;
+        // this if doesn't work
+        // it should be ||
         if ((url_1.value === "") &&  !isValid_Url_1) {
-            url_1.classList.add("has-error");  
+            // touching DOM elements when you use react is a very-very-very bad idea
+            url_1.classList.add("has-error");
         }
         if ((url_2.value === "") &&  !isValid_Url_2) {
-            url_2.classList.add("has-error");  
-        }                
+            url_2.classList.add("has-error");
+        }
+        // such style of conditions is difficult to read and error prone
+        // consider this example:
+        // function onSubmitForm() {
+        //     // fails when url is empty or by regexp
+        //     const url1err = checkUrl(this.state.url1);
+        //     const url2err = checkUrl(this.state.url2);
+        //     this.setState({ url1err, url2err });
+        //     if (url1err || url2err) {
+        //         return;
+        //     }
+        //     whateverYouWantToDoWithCorrectURLs();
+        // }
+        // but even this example is bad for react
+        // right approach:
+        // add listener onBlur for each input and validate there
+        // and disable submit button in form if state has errors
+        // then you don't need to do any checks here
         if ((url_1.value !== "") && (url_2.value !== "") && isValid_Url_1 && isValid_Url_2) {
             if (typeof fetchURL==='function') {
                 fetchURL(url_1.value);
@@ -42,8 +64,8 @@ export default class CompareForm extends Component {
             if (typeof onSubmit==='function') {
                 onSubmit();
             }
-            url_1.classList.remove("has-error");  
-            url_2.classList.remove("has-error");  
+            url_1.classList.remove("has-error");
+            url_2.classList.remove("has-error");
         }
     }
 
