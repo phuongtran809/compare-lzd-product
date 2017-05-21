@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 function mapStateToProps(state) {
     const { app } = state;
     return {
-        html: app.html
+        htmls: app.htmls
     };
 }
-
 export default connect(mapStateToProps)(SpecificationTable);

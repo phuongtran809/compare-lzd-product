@@ -5,7 +5,7 @@ import path from 'path';
 import request from 'request';
 
 function checkUrl(url) {
-    const urlRegex = /^((http[s]?):\/)?\/?www\.lazada\.vn\/[\-\w\.]+$/
+    const urlRegex = /^((http[s]?):\/)?\/?www\.lazada\.vn\/[\-\w\.]+$/;
     return urlRegex.test(url);
 }
 

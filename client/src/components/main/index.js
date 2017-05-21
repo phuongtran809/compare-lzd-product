@@ -7,5 +7,4 @@ function mapStateToProps(state) {
         isShowTable: app.isShowTable
     };
 }
-
 export default connect(mapStateToProps)(Main);

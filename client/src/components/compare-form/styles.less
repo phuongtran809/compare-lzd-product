@@ -37,4 +37,17 @@
     &:focus {
         outline: none;
     }
+    &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+}
+.validate-message {
+    color: #f00;
+    margin-top: 5px;
+    display: none;
+
+    &.has-error {
+        display: block;
+    }
 }
